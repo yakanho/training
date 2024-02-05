@@ -1,6 +1,6 @@
 
 
-<img src="./icann.jpg" alt="ICANN" style="zoom:25%;" />
+<img src="https://github.com/yakanho/training/assets/54844453/321060e5-fc84-40f7-8caa-846d0a68494b" alt="ICANN" style="zoom:25%;" />
 
 ------
 
@@ -15,7 +15,7 @@ Previous version:-
 
 ------
 
-<img src="./grpX_network_topology.png" alt="lab_topology" style="zoom:50%;" />
+<img src="https://github.com/yakanho/training/assets/54844453/d794aab6-720a-4802-86b5-6afea3032957" alt="lab_topology" style="zoom:50%;" />
 
 **<u>Lab Topology (Group X) </u>**
 
