@@ -51,8 +51,8 @@ $TTL    300
                           86400 )       ; Negative Cache TTL
 ;
 
-                IN              NS              ns1.grp1.rw.te-labs.training. ; your name server
-                IN              NS              ns2.grp1.rw.te-labs.training. ; your name server
+                IN              NS              ns1.grp1.<lab_domain>.te-labs.training. ; your name server
+                IN              NS              ns2.grp1.<lab_domain>.te-labs.training. ; your name server
 66		IN		PTR		soa.grpX.<lab_domain>.te-labs.training.
 67		IN		PTR		resolv1.grpX.<lab_domain>.te-labs.training.
 68		IN		PTR		resolv2.grpX.<lab_domain>.te-labs.training.
