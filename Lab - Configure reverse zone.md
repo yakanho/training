@@ -72,10 +72,10 @@ Next, edit the /etc/bind/named.conf.local file and add the following lines:
 
 ```
 zone "X.100.100.in-addr.arpa" {
-type primary;
-file "/etc/bind/zones/reverse_grpX.<lab_domain>.te-labs.training";
-allow-transfer { any; };
-also-notify {100.100.1.130; 100.100.1.131; };
+  type primary;
+  file "/etc/bind/zones/reverse_grpX.<lab_domain>.te-labs.training";
+  allow-transfer { any; };
+  also-notify {100.100.1.130; 100.100.1.131; };
 };
 ```
 
