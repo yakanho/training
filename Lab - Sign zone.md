@@ -1,5 +1,6 @@
 
-<img src="https://github.com/yakanho/training/assets/54844453/321060e5-fc84-40f7-8caa-846d0a68494b" alt="ICANN" style="zoom:25%;" />
+
+<img src="./icann.jpg" alt="ICANN" style="zoom:25%;" />
 
 ------
 
@@ -120,7 +121,7 @@ More tests:
 > When you are done with the manual signing and confirm that your public nameservers are serving the signed zone, you should:
 
 1. revert back `named.conf.local` to its previous configuration, i.e. configure BIND to serve the unsigned zone file as before the manual signing configuration which was: `file "/etc/bind/zones/db.grpX";` 
-2. backup the signed zone file (.signed) and delete all the files created by the manual signing process except the unsigned zone file only (BIND will create its own signed zone file in the next step)
+2. backup the signed zone file (.signed) and delete the .signed zone file (BIND will create its own signed zone file in the next step)
 3. increase the serial in the unsigned zone file and reload BIND.
 
 
