@@ -1,4 +1,4 @@
-![ICANN](file:///Users/yazid.akanho/Documents/Markdown%20documents/Lab%20scripts/icann.jpg?lastModify=1716534751)
+<img src="https://github.com/yakanho/training/assets/54844453/321060e5-fc84-40f7-8caa-846d0a68494b" alt="ICANN" style="zoom:25%;" />
 
 # Lab Hardening your DNS config (Intro)
 
@@ -8,7 +8,6 @@ version: 2024042400
 Previous revision : 2024030100
 Modified by: -
 ```
-
 
 
 Now that your zone configuration is working fine (if not, please do not continue here and go back to fix the config before you continue), we need to do some security enhancements to protect our DNS against some types of attacks.
