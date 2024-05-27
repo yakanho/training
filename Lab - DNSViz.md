@@ -1,6 +1,17 @@
-<img src="./icann.jpg" alt="ICANN" style="zoom:25%;" />
 
-# Lab: DNSViz
+<img src="https://github.com/yakanho/training/assets/54844453/321060e5-fc84-40f7-8caa-846d0a68494b" alt="ICANN" style="zoom:25%;" />
+
+------
+
+# Lab DNSViz
+
+```
+Created by: Yazid AKANHO
+Modified by: -
+Current version: 2024040100
+Previous version:-
+```
+------
 ### Prerequisites
 
 We assume that:
