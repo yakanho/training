@@ -36,7 +36,7 @@ Start by creating a directory to store your DS files for your domain and make su
 Execute the following command to get the DS record and save it in the required file:
 
 ```
-# dnssec-dsfromkey /etc/bind/keys/KgrpX.<lab_domain>.te-labs.training.+_XYZ+YOUR-KSK-key-tag.key > /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX
+# dnssec-dsfromkey /etc/bind/keys/KgrpX.<lab_domain>.te-labs.training.+XYZ+YOUR-KSK-key-tag.key > /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 or you could extract the DS directly from the DNSKEY by querying your domain.
