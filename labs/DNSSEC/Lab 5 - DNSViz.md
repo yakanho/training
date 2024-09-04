@@ -64,3 +64,30 @@ root@resolv1:~# dnsviz probe grpX.<lab-domain>.te-labs.training | dnsviz graph -
 ```
 
 Inform your trainer who will download the file and open it in a graphical environment.
+
+Alternatively, you may want to download and open this file on your own personal laptop. To do so, you can do the following.
+
+Upload the file to the cloud 
+
+```
+root@resolv1:~# curl -F "file=@grp11.sa.te-labs.training.png" https://file.io
+```
+
+The expected output is 
+
+```
+root@resolv1:~# curl -F "file=@grp11.sa.te-labs.training.png" https://file.io
+{"success":true,"status":200,"id":"d3e8b360-6a9c-11ef-84e6-698f82efe096",
+"key":"OpFcoD21ewSG",
+"path":"/",
+"nodeType":"file",
+"name":"grp11.sa.te-labs.training.png",
+"title":null,"description":null,"size":144179,"link":"https://file.io/OpFcoD21ewSG",
+"private":false,"expires":"2024-09-18T09:05:27.433Z",
+"downloads":0,"maxDownloads":1,"autoDelete":true,"planId":0,"screeningStatus":"pending",
+"mimeType":"image/png",
+"created":"2024-09-04T09:05:27.433Z",
+"modified":"2024-09-04T09:05:27.433Z"}
+```
+
+You can now open the generated URL in your browser to download the file on file.io and open it into your local machine.
