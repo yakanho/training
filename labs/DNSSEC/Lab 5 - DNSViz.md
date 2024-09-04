@@ -70,19 +70,19 @@ Alternatively, you may want to download and open this file on your own personal 
 Upload the file to the cloud 
 
 ```
-root@resolv1:~# curl -F "file=@grp11.sa.te-labs.training.png" https://file.io
+root@resolv1:~# curl -F "file=@grpX.<lab-domain>.te-labs.training.png" https://file.io
 ```
 
 The expected output is 
 
 ```
-root@resolv1:~# curl -F "file=@grp11.sa.te-labs.training.png" https://file.io
-{"success":true,"status":200,"id":"d3e8b360-6a9c-11ef-84e6-698f82efe096",
-"key":"OpFcoD21ewSG",
+root@resolv1:~# curl -F "file=@grpX.<lab-domain>.te-labs.training.png" https://file.io
+{"success":true,"status":200,"id":"--------------------------------",
+"key":"XXXXXXXXXXXXXXXXXXX",
 "path":"/",
 "nodeType":"file",
-"name":"grp11.sa.te-labs.training.png",
-"title":null,"description":null,"size":144179,"link":"https://file.io/OpFcoD21ewSG",
+"name":"grpX.<lab-domain>.te-labs.training.png",
+"title":null,"description":null,"size":144179,"link":"https://file.io/XXXXXXXXXXXXXXXXXXX",
 "private":false,"expires":"2024-09-18T09:05:27.433Z",
 "downloads":0,"maxDownloads":1,"autoDelete":true,"planId":0,"screeningStatus":"pending",
 "mimeType":"image/png",
