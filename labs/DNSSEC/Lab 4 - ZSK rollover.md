@@ -35,7 +35,7 @@ $ dig grpX.<*lab_domain*>.te-labs.training dnskey +dnssec +multiline
 shows you one ZSK and one KSK. Remember that the KSK has flags 257.
 
 ```
-$ dig @9.9.9.9 grpX.<*lab_domain*>.te-labs.training SOA +dnssec +multiline
+$ dig grpX.<*lab_domain*>.te-labs.training SOA +dnssec +multiline
 ```
 gives you the SOA record for your domain, and that it is signed.
 
