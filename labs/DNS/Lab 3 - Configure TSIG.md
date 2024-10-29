@@ -7,9 +7,9 @@
 
 ```
 Created by: Yazid AKANHO
-Modified by: -
-Current version: 2024020800
-Previous version:-
+Modified by: Yazid AKANHO
+Current version: 2024102900
+Previous version: 2024020800
 ```
 ------
 # Introduction
@@ -63,7 +63,7 @@ Then in your zone, change allow-transfer line
 ```
 zone "grpX.<lab_domain>.te-labs.training" {                                                                               
         type master;                                                                                                  
-        file "/etc/bind/db.grpX";                                                                                     
+        file "/etc/bind/zones/db.grpX";                                                                                     
         allow-transfer { key grpX-key; };
         also-notify { 100.100.X.130; 100.100.X.131; };                                                                                      
 };
@@ -91,7 +91,7 @@ $ dig @100.100.X.66 axfr grpX.<lab_domain>.te-labs.training
 A look into the SOA server logs should show something like:
 
 ```
-$ tail /var/log/bind/general
+$ tail /var/log/syslog
 
 24-May-2022 10:03:29.433 client @0x7f185c006920 100.100.1.130#38993 (grp1.<lab_domain>.te-labs.training): zone transfer 'grp1.<lab_domain>.te-labs.training/AXFR/IN' denied
 ```
