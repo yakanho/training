@@ -7,8 +7,8 @@
 ```
 Created by: Yazid AKANHO
 Modified by: -
-Current version: 2024020400
-Previous version:-
+Current version: 2024102900
+Previous version: 2024020400
 ```
 
 ------
@@ -87,7 +87,8 @@ We use the container "SOA" (hidden primary authoritative) [**grpX-soa**]
 We go to the `/etc/bind` directory, create a new folder for our zone files. Inside that new folder, we then create a new file for our domain zone data.
 
 ```
-root@soa:/etc/bind/zones# touch db.grpX
+$ sudo mkdir -p /etc/bind/zones
+$ sudo touch db.grpX
 ```
 
 Then, update the db.grpX zone to look like the below:
@@ -140,7 +141,39 @@ zone "grpX.<lab_domain>.te-labs.training" {
 
 
 
-Restart the service and verify its status. Then, query your zone on the local server:
+Restart the DNS service and verify its status. You should see an output as the below
+
+```
+root@soa:/etc/bind# systemctl restart bind9
+root@soa:/etc/bind# systemctl status bind9
+● named.service - BIND Domain Name Server
+     Loaded: loaded (/lib/systemd/system/named.service; enabled; vendor preset: enabled)
+    Drop-In: /run/systemd/system/service.d
+             └─zzz-lxc-service.conf
+     Active: active (running) since Tue 2024-10-29 11:37:52 UTC; 7s ago
+       Docs: man:named(8)
+   Main PID: 2944 (named)
+      Tasks: 26 (limit: 38066)
+     Memory: 52.8M
+     CGroup: /system.slice/named.service
+             └─2944 /usr/sbin/named -f -u bind
+
+Oct 29 11:37:52 soa.grpX.<lab_domain>.te-labs.training named[2944]: zone grpX.<lab_domain>.te-labs.training/I>
+Oct 29 11:37:52 soa.grpX.<lab_domain>.te-labs.training named[2944]: all zones loaded
+Oct 29 11:37:52 soa.grpX.<lab_domain>.te-labs.training named[2944]: running
+Oct 29 11:37:52 soa.grpX.<lab_domain>.te-labs.training named[2944]: zone grpX.<lab_domain>.te-labs.training/I>
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[2944]: managed-keys-zone: Key 20326 fo>
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[2944]: resolver priming query complete
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[2944]: checkhints: b.root-servers.net/>
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[2944]: checkhints: b.root-servers.net/>
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[2944]: checkhints: b.root-servers.net/>
+Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[29
+...
+```
+
+
+
+Then, query your zone on the local server:
 
 ```
 root@soa:/etc/bind# dig @localhost soa grpX.<lab_domain>.te-labs.training.
