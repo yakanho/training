@@ -24,23 +24,23 @@ Previous version: 2024020400
 ```
   DEVICE NAME        IPv4 ADDRESS              IPv6 ADDRESS
 +--------------+-----------------------+-----------------------------+
-| grpX-cli     | 100.100.X.2 (eth0)    | fd89:59e0:X::2 (eth0)       |
+| grpX-cli     | 100.100.X.2 (eth0)    | fd73:7c99:X::2 (eth0)       |
 +--------------+-----------------------+-----------------------------+
-| grpX-ns1     | 100.100.X.130 (eth0)  | fd89:59e0:X:128::130 (eth0) |
+| grpX-ns1     | 100.100.X.130 (eth0)  | fd73:7c99:X:128::130 (eth0) |
 +--------------+-----------------------+-----------------------------+
-| grpX-ns2     | 100.100.X.131 (eth0)  | fd89:59e0:X:128::131 (eth0) |
+| grpX-ns2     | 100.100.X.131 (eth0)  | fd73:7c99:X:128::131 (eth0) |
 +--------------+-----------------------+-----------------------------+
-| grpX-resolv1 | 100.100.X.67 (eth0)   | fd89:59e0:X:64::67 (eth0)   |
+| grpX-resolv1 | 100.100.X.67 (eth0)   | fd73:7c99:X:64::67 (eth0)   |
 +--------------+-----------------------+-----------------------------+
-| grpX-resolv2 | 100.100.X.68 (eth0)   | fd89:59e0:X:64::68 (eth0)   |
+| grpX-resolv2 | 100.100.X.68 (eth0)   | fd73:7c99:X:64::68 (eth0)   |
 +--------------+-----------------------+-----------------------------+
-| grpX-rtr     | 100.64.1.X (eth0)     | fd89:59e0:X::1 (eth1)       |
-|              | 100.100.X.65 (eth2)   | fd89:59e0:X:64::1 (eth2)    |
-|              | 100.100.X.193 (eth4)  | fd89:59e0:X:192::1 (eth4)   |
-|              | 100.100.X.129 (eth3)  | fd89:59e0:X:128::1 (eth3)   |
-|              | 100.100.X.1 (eth1)    | fd89:59e0:0:1::X (eth0)     |
+| grpX-rtr     | 100.64.1.X (eth0)     | fd73:7c99:X::1 (eth1)       |
+|              | 100.100.X.65 (eth2)   | fd73:7c99:X:64::1 (eth2)    |
+|              | 100.100.X.193 (eth4)  | fd73:7c99:X:192::1 (eth4)   |
+|              | 100.100.X.129 (eth3)  | fd73:7c99:X:128::1 (eth3)   |
+|              | 100.100.X.1 (eth1)    | fd73:7c99:0:1::X (eth0)     |
 +--------------+-----------------------+-----------------------------+
-| grpX-soa     | 100.100.X.66 (eth0)   | fd89:59e0:X:64::66 (eth0)   |
+| grpX-soa     | 100.100.X.66 (eth0)   | fd73:7c99:X:64::66 (eth0)   |
 +--------------+-----------------------+-----------------------------+
 ```
 
@@ -72,9 +72,9 @@ grpX             NS          ns1.grpX.<lab_domain>.te-labs.training.
 grpX             NS          ns2.grpX.<lab_domain>.te-labs.training.
 ; ---Placeholder for grpX DS record (DO NOT MANUALLY EDIT THIS LINE)---
 ns1.grpX         A           100.100.X.130
-ns1.grpX         AAAA        fd89:59e0:X:128::130
+ns1.grpX         AAAA        fd73:7c99:X:128::130
 ns2.grpX         A           100.100.X.131
-ns2.grpX         AAAA        fd89:59e0:X:128::131
+ns2.grpX         AAAA        fd73:7c99:X:128::131
 
 ```
 
@@ -88,7 +88,9 @@ We go to the `/var/lib` directory, create a new folder for our zone files. Insid
 
 ```
 $ sudo mkdir -p /var/lib/bind/zones
+$ sudo cd /var/lib/bind/zones
 $ sudo touch db.grpX
+$ sudo chown -R bind:bind /var/lib/bind
 ```
 
 Then, update the db.grpX zone to look like the below:
@@ -111,9 +113,9 @@ $TTL    300
 @	     TXT	   "I AM LEARNING DNS AND IT IS FUN"
 
 ns1         A           100.100.X.130
-ns1         AAAA        fd89:59e0:X:128::130
+ns1         AAAA        fd73:7c99:X:128::130
 ns2         A           100.100.X.131
-ns2         AAAA        fd89:59e0:X:128::131
+ns2         AAAA        fd73:7c99:X:128::131
 www         A           100.100.X.130
 ```
 
@@ -145,8 +147,8 @@ zone "grpX.<lab_domain>.te-labs.training" {
 Restart the DNS service and verify its status. You should see an output as the below
 
 ```
-root@soa:/var/lib# systemctl restart bind9
-root@soa:/var/lib# systemctl status bind9
+root@soa:/var/lib$ sudo systemctl restart bind9
+root@soa:/var/lib$ sudo systemctl status bind9
 ● named.service - BIND Domain Name Server
      Loaded: loaded (/lib/systemd/system/named.service; enabled; vendor preset: enabled)
     Drop-In: /run/systemd/system/service.d
@@ -177,7 +179,7 @@ Oct 29 11:37:53 soa.grpX.<lab_domain>.te-labs.training named[29
 Then, query your zone on the local server:
 
 ```
-root@soa:/var/lib# dig @localhost soa grpX.<lab_domain>.te-labs.training.
+root@soa:/var/lib$ dig @localhost soa grpX.<lab_domain>.te-labs.training.
 ; <<>> DiG 9.16.1-Ubuntu <<>> @localhost soa grpX.<lab_domain>.te-labs.training.
 ; (2 servers found)
 ;; global options: +cmd
@@ -214,7 +216,8 @@ Go to the `/var/lib` directory and create a file that will contain our zone file
 
 ```
 $ sudo mkdir -p /var/lib/bind/zones
-$ touch /var/lib/bind/zones/db.grpX.secondary
+$ sudo touch /var/lib/bind/zones/db.grpX.secondary
+$ sudo chown -R bind:bind /var/lib/bind
 ```
 
 To do this, in the ***/etc/bind/named.conf.local*** file, configure the following parameters:
@@ -223,9 +226,6 @@ To do this, in the ***/etc/bind/named.conf.local*** file, configure the followin
 //
 // Do any local configuration here
 //
-// Consider adding the 1918 zones here, if they are not used in your
-// organization
-//include "/etc/bind/zones.rfc1918";
 
 zone "grpX.<lab_domain>.te-labs.training" {
         type secondary;
@@ -237,15 +237,15 @@ zone "grpX.<lab_domain>.te-labs.training" {
 Verify the configuration and if there are no errors, restart the server:
 
 ```
-# named-checkconf
-# systemctl restart bind9
+$ sudo named-checkconf
+$ sudo rndc reload
 ```
 
 
 Verify that it restarted correctly:
 
 ```
-# systemctl status bind9
+$ sudo systemctl status bind9
 ```
 
 ```
@@ -279,7 +279,15 @@ May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: resolver prim
 
 **Server ns2 runs NSD** (from NLnet Labs)
 
-To do this, in the ***/etc/nsd/nsd.conf*** file, configure the following parameters:
+First, create the zones directory and a new file for your domain name.
+
+```
+$ sudo mkdir -p /var/lib/nsd
+$ sudo touch /var/lib/nsd/db.grpX.secondary
+$ sudo chown -R nsd:nsd /var/lib/nsd
+```
+
+Then, in the ***/etc/nsd/nsd.conf*** file, configure the following parameters:
 
 ```
 # NSD configuration file for Debian.
@@ -295,7 +303,11 @@ To do this, in the ***/etc/nsd/nsd.conf*** file, configure the following paramet
 include: "/etc/nsd/nsd.conf.d/*.conf"
 
 server:
-	zonesdir: "/etc/nsd"
+	zonesdir: "/var/lib/nsd"
+    	hide-version: no
+    	version: "grpX"
+	hide-identity: no
+    	#identity:
 
 pattern:
 	name: "fromprimary"
@@ -304,21 +316,21 @@ pattern:
 
 zone:
 	name: "grpX.<lab_domain>.te-labs.training"
-	zonefile: "grpX.<lab_domain>.te-labs.training.forward"
+	zonefile: "db.grpX.secondary"
 	include-pattern: "fromprimary"
 ```
 
 Verify the configuration and if there are no errors restart the server:
 
 ```
-# nsd-checkconf /etc/nsd/nsd.conf
-# systemctl restart nsd
+$ sudo nsd-checkconf /etc/nsd/nsd.conf
+$ sudo nsd-control reconfig
 ```
 
 Verify that It restarted correctly:
 
 ```
-# systemctl status nsd
+$ sudo systemctl status nsd
 ```
 
 ```
