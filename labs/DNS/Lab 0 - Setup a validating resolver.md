@@ -66,6 +66,9 @@ options {
 	//allow-query { localhost; 100.100.0.0/16; fd73:7c99::/32; };
 	recursion yes;
 };
+server ::/0 {
+        bogus yes;
+    };
 ```
 
 Once finish editing the configuration file, verify the configuration syntax:
