@@ -317,7 +317,7 @@ Then, in the ***/etc/nsd/nsd.conf*** file, configure the following parameters:
 # /etc/nsd/nsd.conf.d directory.
 
 include: "/etc/nsd/nsd.conf.d/*.conf"
-ip4-only: yes
+
 server:
 	zonesdir: "/var/lib/nsd"
     	hide-version: no
@@ -332,7 +332,7 @@ pattern:
 
 zone:
 	name: "grpX.<lab_domain>.te-labs.training"
-	zonefile: "db.grpX.secondary"
+	zonefile: "/var/lib/nsd/db.grpX.secondary"
 	include-pattern: "fromprimary"
 ```
 
