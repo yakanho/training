@@ -138,6 +138,14 @@ zone "grpX.<lab_domain>.te-labs.training" {
 }; 
 ```
 
+Let's disable BIND to talk IPv6 on this server. To do so, edit the ***/etc/bind/named.conf.options*** config file and add the following at the complete bottom of the file.
+
+```
+server ::/0 {
+        bogus yes;
+    }; 
+```
+
 > [!TIP]
 >
 > Once done, use ***named-checkconf*** to verify that your BIND config is correct.
@@ -147,7 +155,7 @@ zone "grpX.<lab_domain>.te-labs.training" {
 Restart the DNS service and verify its status. You should see an output as the below
 
 ```
-root@soa:/var/lib$ sudo systemctl restart bind9
+root@soa:/var/lib$ sudo rndc reload
 root@soa:/var/lib$ sudo systemctl status bind9
 ● named.service - BIND Domain Name Server
      Loaded: loaded (/lib/systemd/system/named.service; enabled; vendor preset: enabled)
@@ -234,6 +242,14 @@ zone "grpX.<lab_domain>.te-labs.training" {
 };
 ```
 
+Here as well, let's disable BIND to talk IPv6 on this server. To do so, edit the ***/etc/bind/named.conf.options*** config file and add the following at the complete bottom of the file.
+
+```
+server ::/0 {
+        bogus yes;
+    }; 
+```
+
 Verify the configuration and if there are no errors, restart the server:
 
 ```
@@ -301,7 +317,7 @@ Then, in the ***/etc/nsd/nsd.conf*** file, configure the following parameters:
 # /etc/nsd/nsd.conf.d directory.
 
 include: "/etc/nsd/nsd.conf.d/*.conf"
-
+ip4-only: yes
 server:
 	zonesdir: "/var/lib/nsd"
     	hide-version: no
