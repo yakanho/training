@@ -23,23 +23,17 @@ During this practice we are going to access the following equipments:
 
 We use the container "Resolv 1" (recursive server) [**grpX-resolv1**]. This container already has the BIND9 packages downloaded and installed.
 
-Switch to the root user:
-
-```
-$ sudo su -
-```
-
 Go to the /etc/bind directory:
 
 ```
-# cd /etc/bind
+$ cd /etc/bind
 ```
 
 At this point we must configure some BIND9 options.
 To do this, edit the file `/etc/bind/named.conf.options`:
 
 ```
-# nano named.conf.options
+$ sudo nano named.conf.options
 ```
 
 Then add the options to indicate (when resolving) the IP addresses that are allowed to query this resolver, and the IP addresses our server will be listening on (port 53). The file should be as follows:
