@@ -205,7 +205,7 @@ server:
         do-udp: yes
         do-tcp: yes
         do-ip4: yes
-        # do-ip6: yes
+        do-ip6: no
 
 include: "/etc/unbound/unbound.conf.d/*.conf"
 ```
