@@ -138,13 +138,6 @@ zone "grpX.<lab_domain>.te-labs.training" {
 }; 
 ```
 
-Let's disable BIND to talk IPv6 on this server. To do so, edit the ***/etc/bind/named.conf.options*** config file and add the following at the complete bottom of the file.
-
-```
-server ::/0 {
-        bogus yes;
-    }; 
-```
 
 > [!TIP]
 >
@@ -242,13 +235,6 @@ zone "grpX.<lab_domain>.te-labs.training" {
 };
 ```
 
-Here as well, let's disable BIND to talk IPv6 on this server. To do so, edit the ***/etc/bind/named.conf.options*** config file and add the following at the complete bottom of the file.
-
-```
-server ::/0 {
-        bogus yes;
-    }; 
-```
 
 Verify the configuration and if there are no errors, restart the server:
 
@@ -299,7 +285,6 @@ First, create the zones directory and a new file for your domain name.
 
 ```
 $ sudo mkdir -p /var/lib/nsd
-$ sudo touch /var/lib/nsd/db.grpX.secondary
 $ sudo chown -R nsd:nsd /var/lib/nsd
 ```
 
@@ -332,7 +317,7 @@ pattern:
 
 zone:
 	name: "grpX.<lab_domain>.te-labs.training"
-	zonefile: "/var/lib/nsd/db.grpX.secondary"
+	zonefile: "db.grpX.secondary"
 	include-pattern: "fromprimary"
 ```
 
