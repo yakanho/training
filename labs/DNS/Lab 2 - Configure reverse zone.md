@@ -37,7 +37,7 @@ During this practice we are only going to access the following equipment:
 To map your IP address to your domain name, we’ll need to setup a reverse zone. We are going to configure a hidden authoritative server for your reverse zone and create the authoritative zone reverse\_*grpX*.<*lab_domain*>.te-labs.training.
 
 ```
-# nano /etc/bind/zones/reverse_grpX.<lab_domain>.te-labs.training
+$ sudo nano /var/lib/bind/zones/reverse_grpX.<lab_domain>.te-labs.training
 ```
 
 
@@ -65,7 +65,7 @@ Save and exit.
 Run the following command to check for any errors in your setup:
 
 ```
-# named-checkzone X.100.100.in-addr.arpa /etc/bind/zones/reverse_grpX.<lab_domain>.te-labs.training
+$ named-checkzone X.100.100.in-addr.arpa /var/lib/bind/zones/reverse_grpX.<lab_domain>.te-labs.training
 ```
 
 Next, edit the /etc/bind/named.conf.local file and add the following lines:
@@ -73,7 +73,7 @@ Next, edit the /etc/bind/named.conf.local file and add the following lines:
 ```
 zone "X.100.100.in-addr.arpa" {
   type primary;
-  file "/etc/bind/zones/reverse_grpX.<lab_domain>.te-labs.training";
+  file "/var/lib/bind/zones/reverse_grpX.<lab_domain>.te-labs.training";
   allow-transfer { any; };
   also-notify {100.100.X.130; 100.100.X.131; };
 };
@@ -87,16 +87,22 @@ Run the following command to check for any errors in your setup:
 # named-checkconf
 ```
 
-Restart Bind 9 and test your reverse DNS using dig
+Restart Bind 9 
 
 ```
-# dig -x 100.100.X.66 @localhost
+$ sudo rndc reload
+$ sudo systemctl status bind9
+```
+
+Test your reverse DNS using dig
+```
+$ dig -x 100.100.X.66 @localhost
 ```
 
 Or
 
 ```
-# dig 66.X.100.100.in-addr.arpa. PTR @localhost
+$ dig 66.X.100.100.in-addr.arpa. PTR @localhost
 ```
 
 
