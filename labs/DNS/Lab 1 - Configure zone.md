@@ -88,7 +88,7 @@ We go to the `/var/lib` directory, create a new folder for our zone files. Insid
 
 ```
 $ sudo mkdir -p /var/lib/bind/zones
-$ sudo cd /var/lib/bind/zones
+$ cd /var/lib/bind/zones
 $ sudo touch db.grpX
 $ sudo chown -R bind:bind /var/lib/bind
 ```
