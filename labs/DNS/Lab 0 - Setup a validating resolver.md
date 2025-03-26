@@ -66,9 +66,6 @@ options {
 	//allow-query { localhost; 100.100.0.0/16; fd73:7c99::/32; };
 	recursion yes;
 };
-server ::/0 {
-        bogus yes;
-    };
 ```
 
 Once finish editing the configuration file, verify the configuration syntax:
@@ -198,15 +195,14 @@ server:
 
         access-control: 127.0.0.0/8 allow
         access-control: 100.100.0.0/16 allow
-        # access-control: fd73:7c99::/32 allow
+        access-control: fd73:7c99::/32 allow
 
         port: 53
 
         do-udp: yes
         do-tcp: yes
         do-ip4: yes
-        do-ip6: no
-	prefer-ip4: yes
+        do-ip6: yes
 
 include: "/etc/unbound/unbound.conf.d/*.conf"
 ```
