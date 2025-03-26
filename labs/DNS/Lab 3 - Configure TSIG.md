@@ -58,12 +58,12 @@ server 100.100.X.131 {
 
 Don't forget to replace X in "**grpX-key**" ....!
 
-Then in your zone, change allow-transfer line
+Then in your zone, **change allow-transfer line** as shown below
 
 ```
 zone "grpX.<lab_domain>.te-labs.training" {                                                                               
-        type master;                                                                                                  
-        file "/etc/bind/zones/db.grpX";                                                                                     
+        type primary;                                                                                                  
+        file "/var/lib/bind/zones/db.grpX";                                                                                     
         allow-transfer { key grpX-key; };
         also-notify { 100.100.X.130; 100.100.X.131; };                                                                                      
 };
@@ -76,6 +76,7 @@ Restart *named* service
 ```
 $ sudo named-checkconf
 $ sudo rndc reconfig
+$ sudo systemctl status bind9
 ```
 
 ## On NS1 server
@@ -96,7 +97,7 @@ $ tail /var/log/syslog
 24-May-2022 10:03:29.433 client @0x7f185c006920 100.100.1.130#38993 (grp1.<lab_domain>.te-labs.training): zone transfer 'grp1.<lab_domain>.te-labs.training/AXFR/IN' denied
 ```
 
-We need the key!
+**We need the key!**
 
 You can also test manually as follows:
 
@@ -120,12 +121,11 @@ server 100.100.X.66 {		// here you put the IP of YOUR primary server (SOA)
 };
 ```
 
-Save, exit and restart bind9.
+Save, exit and **restart bind9**.
 
 ### Testing the configuration
 
-On SOA server increase the serial and reload the zone. Then, 
-`$ sudo rndc reload grpX.<lab_domain>.te-labs.training`
+On SOA server **increase the serial** and **reload BIND9 service**. 
 
 In ns1, go to logs and validate that the transfer was successful.
 
@@ -168,7 +168,7 @@ request-xfr: AXFR 100.100.X.66 grpX-key
 ```
 
 
-Save, exit, verify and restart NSD service.
+Save, exit, verify and **restart NSD service**.
 
 ```
 $ nsd-checkconf /etc/nsd/nsd.conf
