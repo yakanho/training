@@ -15,6 +15,13 @@ Previous version:-
 ------
 For this lab, we use the container "SOA" (hidden primary authoritative) [grpX-soa].
 
+## Create a folder for your DNSSEC keys
+
+```
+$ sudo mkdir -p /var/lib/bind/keys
+$ sudo chown -R bind:bind /var/lib/bind/keys
+```
+
 ## Configure BIND to sign the zone.
 
 #### Edit config file.
@@ -26,6 +33,7 @@ zone "grpX.<lab_domain>.te-labs.training" {
 	file "/var/lib/bind/zones/db.grpX";
 	allow-transfer { any; };
 	also-notify {100.100.X.130; 100.100.X.131; };
+	key-directory "/var/lib/bind/keys";
 	inline-signing yes;
 	dnssec-policy te-labs;
 };
@@ -53,7 +61,11 @@ dnssec-policy te-labs {
 
 Then, reconfigure or restart BIND: using `rndc reconfig` or `systemctl restart bind9`. Always check status after such operation.
 
-Some new files should appear in the *zones* directory.
+#### Confirm that BIND has generated the keys
+
+```
+$ cat /var/lib/bind/keys
+```
 
 #### Verify that your zone is signed.
 We use the command `rndc signing -list ` to confirm that the zone is signed. You should get an output like:
