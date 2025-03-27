@@ -8,25 +8,18 @@
 ```
 Created by: Yazid AKANHO
 Modified by: -
-Current version: 2024020400
+Current version: 2025032700
 Previous version:-
 ```
 
 ------
 
 As a reminder, your domain is grpX.<lab_domain>.te-labs.training, and your parent is <lab_domain>.te-labs.training.
-
-> [!IMPORTANT]
->
-> Your parent is expecting your DS file name in the following format: **DS_YOUR-KSK-key-tag.grpX**. Reminder to replace 'X' with your group number. For example, if your KSK tag is 2347 and your group number if 12, your DS file name should be DS_2347.grp12.
-
-
-
-Start by creating a directory to store your DS files for your domain and make sure BIND has "write" access :
+First, create a folder to store your DS key files.
 
 ```
-# mkdir -p /etc/bind/zones/ds
-# chown -R bind:bind /etc/bind/zones/ds
+$ sudo mkdir -p /var/lib/bind/ds
+$ sudo chown -R bind:bind /var/lib/bind/ds
 ```
 
 
@@ -36,19 +29,19 @@ Start by creating a directory to store your DS files for your domain and make su
 Execute the following command to get the DS record and save it in the required file:
 
 ```
-# dnssec-dsfromkey /etc/bind/keys/KgrpX.<lab_domain>.te-labs.training.+XYZ+YOUR-KSK-key-tag.key > /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX
+$ dnssec-dsfromkey /var/lib/bind/keys/KgrpX.<lab_domain>.te-labs.training.+XYZ+YOUR-KSK-key-tag.key > /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 or you could extract the DS directly from the DNSKEY by querying your domain.
 
 ```
-# dig @localhost dnskey grpX.<lab_domain>.te-labs.training | dnssec-dsfromkey -f - grpX.<lab_domain>.te-labs.training > /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX
+# dig @localhost dnskey grpX.<lab_domain>.te-labs.training | dnssec-dsfromkey -f - grpX.<lab_domain>.te-labs.training > /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 Verify the content of the generated file:
 
 ```
-# cat /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX
+# cat /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 Which should contain something similar to the following line:
@@ -61,22 +54,7 @@ grpX.<lab_domain>.te-labs.training. IN DS YOUR-KSK-key-tag 8 2 018A86C0139BA5500
 
 ### Push the DS to your parent
 
-You can now send the DS file to the parent.
-
-```
-# scp /etc/bind/zones/ds/DS_YOUR-KSK-key-tag.grpX dsuser@100.64.0.53:DS/
-```
-
-Type in the "dsuser" account password if prompted. Password is same as the username. You should see transfer status as below:
-
-```
-DS_YOUR-KSK-key-tag.grpX        100%  106   123.6KB/s   00:00    
-```
-
-> [!IMPORTANT]
->
-> Once you have pushed your DS to the parent, you should inform your instructor who will publish it into the lab (parent) zone.
-
+You can now send the DS file to the parent. To do so, copy the content of the ds file you generated above and paste it in the text field below the network diagram of your lab in https://<*lab_domain*>.te-labs.training/grpX and wait 5 minutes to continue this lab.
 
 
 ### Verify that your DS is published into your parent's zone
