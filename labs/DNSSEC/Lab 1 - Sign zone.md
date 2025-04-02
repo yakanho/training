@@ -72,8 +72,8 @@ We use the command `rndc signing -list ` to confirm that the zone is signed. You
 
 ```
 $ sudo rndc signing -list grpX.<lab_domain>.te-labs.training
-Done signing with key 52159/RSASHA256
-Done signing with key 51333/RSASHA256
+Done signing with key 5341/ECDSAP256SHA256
+Done signing with key 64259/ECDSAP256SHA256
 ```
 Now, time to check your system log files to understand and confirm the signing of your zone as well as the automatic transfer of the signed zone to NS1 and NS2.
 
