@@ -61,8 +61,8 @@ options {
 	//========================================================================
 	dnssec-validation auto;
 	listen-on port 53 { localhost; 100.100.0.0/16; };
-	listen-on-v6 port 53 { localhost; fd73:7c99::/32; };
-	allow-query { localhost; 100.100.0.0/16; fd73:7c99::/32; };
+	listen-on-v6 port 53 { localhost; fd89:59e0::/32; };
+	allow-query { localhost; 100.100.0.0/16; fd89:59e0::/32; };
 	recursion yes;
 };
 ```
@@ -194,7 +194,7 @@ server:
 
         access-control: 127.0.0.0/8 allow
         access-control: 100.100.0.0/16 allow
-        access-control: fd73:7c99::/32 allow
+        access-control: fd89:59e0::/32 allow
 
         port: 53
 
