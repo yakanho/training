@@ -8,8 +8,8 @@
 ```
 Created by: Yazid AKANHO
 Modified by: -
-Current version: 2024020400
-Previous version:-
+Current version: 2025030400
+Previous version: 2024020400
 ```
 
 ------
@@ -91,6 +91,7 @@ Try using dig to query the IPv4 address corresponding to www.icann.org. Here are
 $ dig www.icann.org A
 $ dig www.icann.org A
 $ dig @8.8.8.8 www.icann.org A
+$ dig @9.9.9.9 www.icann.org A
 $ dig @1.1.1.1 www.icann.org A
 ```
 
@@ -103,19 +104,19 @@ $ dig NS icann.org
 ```
 
 ```
-$ dig SOA ricta.org.rw
+$ dig SOA icann.org
 ```
 
 ```
-$ dig www.ricta.org.rw A
+$ dig www.icann.org A
 ```
 
 ```
-$ dig @8.8.8.8 www.ricta.org.rw A
+$ dig www.icann.org A
 ```
 
 ```
-$ dig SOA ricta.org.rw @ns1.ricta.org.rw.
+$ dig SOA icann.org @ns.icann.org.
 ```
 
 
@@ -126,13 +127,13 @@ Again, try to discuss the various outputs with your instructors.
 * **+short**: to display only the queried resource record value
 
 ```
-$ dig @8.8.8.8 www.icann.org A +short
+$ dig www.icann.org A +short
 ```
 
 * **+noall +answer**: to get detailed information of the answers section only
 
 ```
-$ dig @8.8.8.8 www.icann.org A +noall +answer
+$ dig www.icann.org A +noall +answer
 ```
 
 * **+trace**: lists each different server the query goes through to its final destination. Good for troubleshooting
@@ -165,6 +166,7 @@ $ dig txt hostname.bind @d.root-servers.net CHAOS
 ```
 $ dig txt ID.SERVER @d.root-servers.net CHAOS
 $ dig txt ID.SERVER @9.9.9.9 CHAOS
+$ dig txt ID.SERVER @ns.icann.org. CHAOS
 ```
 
 * **version.bind**: BIND servers respond to queries for name version.bind with record type TXT and class CHAOS. By default, this is set to the version of BIND that has been installed
@@ -172,6 +174,7 @@ $ dig txt ID.SERVER @9.9.9.9 CHAOS
 ```
 $ dig CHAOS txt version.bind @ns.icann.org.
 $ dig txt version.bind @d.root-servers.net CHAOS
+$ dig txt version.bind @9.9.9.9 CHAOS
 ```
 
 
