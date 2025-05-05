@@ -60,7 +60,7 @@ During this practice we are only going to access the following equipment:
 
 ### Intro
 
-We are going to configure a hidden authoritative server and create the authoritative zone *grpX*.<*lab_domain*>.te-labs.training.
+We are going to configure a hidden authoritative server and create the authoritative zone for your domain name *grpX*.<*lab_domain*>.te-labs.training.
 
 ### What we already know
 
@@ -123,7 +123,8 @@ You can add more records as you want.
 
 > [!TIP]
 >
-> Once done, it is important to verify the zone file format. Use ***named-checkzone*** command with appropriate parameters to do that.
+> Once done, it is important to verify the zone file format.
+> Use ***named-checkzone DOMAIN_NAME ZONE_FILE *** command to do that (remember to replace DOMAIN_NAME ZONE_FILE accordingly).
 
 
 
