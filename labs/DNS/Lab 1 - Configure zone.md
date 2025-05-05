@@ -146,7 +146,7 @@ zone "grpX.<lab_domain>.te-labs.training" {
 
 
 
-Restart the DNS service and verify its status. You should see an output as the below
+Reload the DNS service to consider the last configuration and verify its status. You should see an output as the below
 
 ```
 root@soa:/var/lib$ sudo rndc reload
