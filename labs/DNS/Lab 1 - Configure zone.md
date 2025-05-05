@@ -124,7 +124,7 @@ You can add more records as you want.
 > [!TIP]
 >
 > Once done, it is important to verify the zone file format.
-> Use ***named-checkzone DOMAIN_NAME ZONE_FILE *** command to do that (remember to replace DOMAIN_NAME ZONE_FILE accordingly).
+> Use ***named-checkzone DOMAIN_NAME ZONE_FILE*** command to do that (remember to replace DOMAIN_NAME ZONE_FILE accordingly).
 
 
 
