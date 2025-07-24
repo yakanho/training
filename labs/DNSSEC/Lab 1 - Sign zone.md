@@ -68,14 +68,18 @@ $ cat /var/lib/bind/keys
 ```
 
 #### Verify that your zone is signed.
-We use the command `rndc signing -list ` to confirm that the zone is signed. You should get an output like:
+We use the command `rndc dnssec -status ZONE ` to confirm that the zone is signed.
+
+In the past, we used to use the command `rndc signing -list ZONE ` to confirm that the zone is signed.
 
 ```
 $ sudo rndc signing -list grpX.<lab_domain>.te-labs.training
 Done signing with key 5341/ECDSAP256SHA256
 Done signing with key 64259/ECDSAP256SHA256
 ```
-Now, time to check your system log files to understand and confirm the signing of your zone as well as the automatic transfer of the signed zone to NS1 and NS2.
+
+Now, time to check your system log files to understand and confirm the signing of your zone.
+Also, it is important to check the transfer of the signed zone to NS1 and NS2.
 
 ```
 $ sudo grep "named" /var/log/syslog
