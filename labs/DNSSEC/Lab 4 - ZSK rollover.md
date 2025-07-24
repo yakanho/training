@@ -61,7 +61,7 @@ BIND9 will handle most of these steps, but you will still have to generate a new
 
    > [!CAUTION]
    >
-   > Remember that your filename will be different! Do not simply cut and paste Kmytld.+008+26734 later in the lab!
+   > Remember that your filename will be different! Do not simply copy and paste Kmytld.+008+26734 later in the lab!
 
    ```
    root@soa:/etc/bind/keys# cat KgrpX.<lab_domain>.te-labs.training.+008+26734.key 
@@ -69,8 +69,7 @@ BIND9 will handle most of these steps, but you will still have to generate a new
    ; Created: 20221103220010 (Thu Nov  3 22:00:10 2022)
    ; Publish: 20221103220010 (Thu Nov  3 22:00:10 2022)
    ; Activate: 20221103220010 (Thu Nov  3 22:00:10 2022)
-   grpX.<lab_domain>.te-labs.training. IN DNSKEY 256 3 8 AwEAAadehqG2E23DsA4MnHcaeTH/bKTHlLftvUKR9i8lVbvWNTydacdQ MsZJPTTFZXHeXFdSmxAxImc/FEGNnk9VRr3FfzfJKbc+s6r17PLWn1bO sUxawKZogOvISPytMcWnhbj8Trs8KOoAekB1PRaiPGsCP/nj68ufvrzl x2AcfDJAWPynNDjgHxeFygifVlM6iYuzmPlpcMAY5LCIS/B1MrfashJh wtj0dldgqJSp6yZHaP8vcrMa6+s5McQcqRpyoR2rpNpl6PiOUBtjE0Ho nwg1XYzSaBAbhLdmQhC4MWL/aNiXp1ybwXSVb8uZqL5k26QlKRNH2eB8 
-   YRRtq+B9rIs=
+   grpX.<lab_domain>.te-labs.training. IN DNSKEY 256 3 8 AwEAAadehqG2E23DsA4MnHcaeTH/bKTHlLftvUKR9i8lVbvWNTydacdQ MsZJPTTFZXHeXFdSmxAxImc/FEGNnk9VRr3FfzfJKbc+s6r17PLWn1bO sUxawKZogOvISPytMcWnhbj8Trs8KOoAekB1PRaiPGsCP/nj68ufvrzl x2AcfDJAWPynNDjgHxeFygifVlM6iYuzmPlpcMAY5LCIS/B1MrfashJh wtj0dldgqJSp6yZHaP8vcrMa6+s5McQcqRpyoR2rpNpl6PiOUBtjE0Ho nwg1XYzSaBAbhLdmQhC4MWL/aNiXp1ybwXSVb8uZqL5k26QlKRNH2eB8YRRtq+B9rIs=
    root@soa:/etc/bind/keys# 
    ```
 
