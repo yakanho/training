@@ -64,7 +64,7 @@ Then, reconfigure or restart BIND: using `rndc reconfig` or `systemctl restart b
 #### Confirm that BIND has generated the keys
 
 ```
-$ cat /var/lib/bind/keys
+$ ll /var/lib/bind/keys
 ```
 
 #### Verify that your zone is signed.
