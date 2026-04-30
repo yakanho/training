@@ -26,6 +26,9 @@ $ sudo chown -R bind:bind /var/lib/bind/ds
 
 ### Generate your DS record
 
+> [!IMPORTANT]
+> To generate the DS, you must replace the +XYZ+YOUR-KSK-key-tag with the correct values according to the signing algorithm you used and the ID of your KSK.
+
 Execute the following command to get the DS record and save it in the required file:
 
 ```
@@ -37,6 +40,8 @@ or you could extract the DS directly from the DNSKEY by querying your domain.
 ```
 # dig @localhost dnskey grpX.<lab_domain>.te-labs.training | dnssec-dsfromkey -f - grpX.<lab_domain>.te-labs.training |sudo tee /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
+
+
 
 Verify the content of the generated file:
 
