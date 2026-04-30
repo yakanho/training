@@ -29,13 +29,13 @@ $ sudo chown -R bind:bind /var/lib/bind/ds
 Execute the following command to get the DS record and save it in the required file:
 
 ```
-$ dnssec-dsfromkey /var/lib/bind/keys/KgrpX.<lab_domain>.te-labs.training.+XYZ+YOUR-KSK-key-tag.key > /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
+$ dnssec-dsfromkey /var/lib/bind/keys/KgrpX.<lab_domain>.te-labs.training.+XYZ+YOUR-KSK-key-tag.key |sudo tee /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 or you could extract the DS directly from the DNSKEY by querying your domain.
 
 ```
-# dig @localhost dnskey grpX.<lab_domain>.te-labs.training | dnssec-dsfromkey -f - grpX.<lab_domain>.te-labs.training > /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
+# dig @localhost dnskey grpX.<lab_domain>.te-labs.training | dnssec-dsfromkey -f - grpX.<lab_domain>.te-labs.training |sudo tee /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
 ```
 
 Verify the content of the generated file:
