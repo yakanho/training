@@ -68,13 +68,8 @@ Our "parent" (<*lab_domain*>.te-labs.training) has already created the following
 
 ```shell
 ; grpX
-grpX             NS          ns1.grpX.<lab_domain>.te-labs.training.
-grpX             NS          ns2.grpX.<lab_domain>.te-labs.training.
+grpX             NS          <lab_domain>.te-labs.training.
 ; ---Placeholder for grpX DS record (DO NOT MANUALLY EDIT THIS LINE)---
-ns1.grpX         A           100.100.X.130
-ns1.grpX         AAAA        fd89:59e0:X:128::130
-ns2.grpX         A           100.100.X.131
-ns2.grpX         AAAA        fd89:59e0:X:128::131
 
 ```
 
@@ -98,7 +93,7 @@ Then, update the db.grpX zone to look like the below:
 ```
 ; grpX 
 
-$TTL    300
+$TTL    120
 @       IN      SOA     soa.grpX.<lab_domain>.te-labs.training. dnsadmin.grpX.<lab_domain>.te-labs.training. (                                            
                               1         ; Serial
                          604800         ; Refresh
@@ -108,14 +103,19 @@ $TTL    300
 ;
 
 ; grpX 
-@             NS           ns1.grpX.<lab_domain>.te-labs.training.
-@             NS           ns2.grpX.<lab_domain>.te-labs.training.
+@             NS           <lab_domain>.te-labs.training.
 @	     TXT	   "I AM LEARNING DNS AND IT IS FUN"
 
 ns1         A           100.100.X.130
 ns1         AAAA        fd89:59e0:X:128::130
 ns2         A           100.100.X.131
 ns2         AAAA        fd89:59e0:X:128::131
+soa			A			100.100.X.66
+soa 		AAAA		fd89:59e0:X:128::66
+resolv1		A			100.100.X.67
+resolv1		AAAA		fd89:59e0:X:128::67
+resolv2		A			100.100.X.68
+resolv2		AAAA		fd89:59e0:X:128::68
 www         A           100.100.X.130
 ```
 
@@ -135,7 +135,12 @@ zone "grpX.<lab_domain>.te-labs.training" {
 		type primary;
 		file "/var/lib/bind/zones/db.grpX";
 		allow-transfer { any; };
-		also-notify {100.100.X.130; 100.100.X.131; };
+		also-notify {
+                100.100.X.130; 
+                100.100.X.131; 
+                fd89:59e0:X:128::130; 
+                fd89:59e0:X:128::131; 
+        };
 }; 
 ```
 
@@ -232,7 +237,10 @@ To do this, in the ***/etc/bind/named.conf.local*** file, configure the followin
 zone "grpX.<lab_domain>.te-labs.training" {
         type secondary;
         file "/var/lib/bind/zones/db.grpX.secondary";
-        masters { 100.100.X.66; };
+        masters { 
+        100.100.X.66; 
+        fd89:59e0:X:64::66;
+    };
 };
 ```
 
@@ -305,21 +313,27 @@ Then, in the ***/etc/nsd/nsd.conf*** file, configure the following parameters:
 include: "/etc/nsd/nsd.conf.d/*.conf"
 
 server:
-	zonesdir: "/var/lib/nsd"
-    	hide-version: no
-    	version: "grpX"
-	hide-identity: no
-    	#identity:
+    log-only-syslog: yes
+    zonesdir: "/var/lib/nsd"
+    nsid: "ascii_grpX NSD nsid"
+    hide-version: no
+    hide-identity: no
+    cookie-secret: "71ff147d946b942ed66e608b64dc54c9"
+    answer-cookie: yes
 
 pattern:
-	name: "fromprimary"
-	allow-notify: 100.100.X.66 NOKEY
-	request-xfr: AXFR 100.100.X.66 NOKEY
+    name: "fromprimary"
+    allow-notify: 100.100.X.66 NOKEY
+    allow-notify: fd89:59e0:X:64::66 NOKEY
+    allow-notify: fd89:59e0:X::2 NOKEY
+    request-xfr: AXFR 100.100.X.66 NOKEY
+    request-xfr: AXFR fd89:59e0:X:64::66 NOKEY
+    request-xfr: AXFR fd89:59e0:X::2 NOKEY
 
 zone:
-	name: "grpX.<lab_domain>.te-labs.training"
-	zonefile: "db.grpX.secondary"
-	include-pattern: "fromprimary"
+    name: "grpX.mali.te-labs.training."
+    zonefile: "db.grpX.secondary"
+    include-pattern: "fromprimary"
 ```
 
 Verify the configuration and if there are no errors restart the server:
