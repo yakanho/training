@@ -104,3 +104,50 @@ grpX.<*lab_domain*>.te-labs.training. 60    IN    DS      42330 13 2 6376D675767
 A ce stade, vous venez de dire au monde entier que votre zone est signée DNSSEC et que tout resolver validant (resolver récursif avec la  **validation DNSSEC active**) devra effectuer la validation DNSSEC pour les réponses issues de votre zone. 
 
 Vous pouvez donc à nouveau interroger votre zone en utilisant les mêmes requêtes que dans le lab précédent et voir si vous obtenez cette fois le drapeau "ad". Pourquoi ?
+
+
+
+### Confirmez à votre signer que la DS est publiée pour terminer le processus de signature
+
+Pour clore le processus de signature de votre zone une fois la confirmation de la publication de votre DS par votre parent obtenue, vous pouvez notifier à votre système de signature que cette action est effectivement effectuée chez le parent. 
+
+```
+$ sudo rndc dnssec -checkds -key 42330 published grpX.<lab_domain>.te-labs.training
+KSK 42330: Marked DS as published since 17-May-2026 19:14:49.000
+```
+
+Vous obtiendrez alors un message comme celui affiché ci-dessus.
+
+> [!NOTE]
+>
+> Cette tâche peut être également confiée à BIND avec la directive `checkds yes`; ou `checkds explicit`, selon le cas. Lire la documentation de BIND y afférent si cela vous intéresse: https://bind9.readthedocs.io/en/latest/reference.html#namedconf-statement-checkds
+
+
+
+Patientez, puis vérifiez à nouveau le statut de votre ds dans votre signer pour votre zone:
+
+```
+$ sudo rndc dnssec -status grpX.<lab_domain>.te-labs.training
+dnssec-policy: NotForProduction
+current time:  Sun May 17 19:16:21 2026
+
+key: 8731 (ECDSAP256SHA256), ZSK
+  published:      yes - since Sun May 17 17:50:48 2026
+  zone signing:   no
+
+  Key is retired, will be removed on Sun May 17 19:37:49 2026
+  - goal:           omnipresent
+  - dnskey:         omnipresent
+  - zone rrsig:     omnipresent
+
+key: 42330 (ECDSAP256SHA256), KSK
+  published:      yes - since Sun May 17 17:50:48 2026
+  key signing:    yes - since Sun May 17 17:50:48 2026
+
+  Next rollover scheduled on Sun May 17 21:49:47 2026
+  - goal:           omnipresent
+  - dnskey:         omnipresent
+  - ds:             omnipresent
+  - key rrsig:      omnipresent
+```
+
