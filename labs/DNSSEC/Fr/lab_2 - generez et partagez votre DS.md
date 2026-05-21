@@ -53,10 +53,9 @@ Vérifiez le contenu de votre fichier afin de confirmer l'enregistrement DS :
 
 ```
 $ cat /var/lib/bind/ds/DS_YOUR-KSK-key-tag.grpX
-grpX.<lab_domain>.te-labs.training. IN DS 42330 13 2 6376D6757675DC67535CD3546D9CE6B531E542417BA8B80DC550F793C2DC61AB
 ```
 
-Which should contain something similar to the following line:
+Cette commande devrait retourner un résultat similaire à la ligne ci-dessous:
 
 ```
 grpX.<lab_domain>.te-labs.training. IN DS YOUR-KSK-key-tag 8 2 018A86C0139BA5500AC87A5BAD8FB5D8D4F9672C319B34DB5A7F3BC10A424D6E
@@ -112,7 +111,7 @@ Vous pouvez donc à nouveau interroger votre zone en utilisant les mêmes requê
 Pour clore le processus de signature de votre zone une fois la confirmation de la publication de votre DS par votre parent obtenue, vous pouvez notifier à votre système de signature que cette action est effectivement effectuée chez le parent. 
 
 ```
-$ sudo rndc dnssec -checkds -key 42330 published grpX.<lab_domain>.te-labs.training
+$ sudo rndc dnssec -checkds -key YOUR-KSK-key_ID published grpX.<lab_domain>.te-labs.training
 KSK 42330: Marked DS as published since 17-May-2026 19:14:49.000
 ```
 
