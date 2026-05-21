@@ -34,9 +34,10 @@ zone "grpX.<lab_domain>.te-labs.training" {
 	file "/var/lib/bind/zones/db.grpX";
 	allow-transfer { any; };
 	also-notify {100.100.X.130; 100.100.X.131; };
-	key-directory "/var/lib/bind/keys"; # nouvelle instruction
+	key-directory "/var/lib/bind/keys"; 				# nouvelle instruction
 	inline-signing yes;									# nouvelle instruction
-	dnssec-policy NotForProduction;							# nouvelle instruction
+	dnssec-policy NotForProduction;						# nouvelle instruction
+	checkds ( no );
 };
 
 ////// Nouvelle DNSSEC POLICY pour la gestion DNSSEC //////
