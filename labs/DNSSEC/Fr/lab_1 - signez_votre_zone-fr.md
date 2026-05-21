@@ -58,8 +58,8 @@ dnssec-policy NotForProduction {
     signatures-validity 1h;
     signatures-validity-dnskey 1h;
     keys {
-        ksk key-directory lifetime 4h algorithm ecdsa256;
-        zsk key-directory lifetime 1h algorithm ecdsa256;
+        ksk key-directory lifetime 8h algorithm ecdsa256;
+        zsk key-directory lifetime 2h algorithm ecdsa256;
     };
     cdnskey no;
     cds-digest-types { };
