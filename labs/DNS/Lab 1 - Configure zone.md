@@ -331,7 +331,7 @@ pattern:
     request-xfr: AXFR fd89:59e0:X::2 NOKEY
 
 zone:
-    name: "grpX.mali.te-labs.training."
+    name: "grpX.<lab_domain>.te-labs.training."
     zonefile: "db.grpX.secondary"
     include-pattern: "fromprimary"
 ```
