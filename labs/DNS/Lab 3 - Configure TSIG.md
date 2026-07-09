@@ -49,10 +49,10 @@ algorithm hmac-sha256;
         secret "THIS_IS_MY_KEY";
 };
 server 100.100.X.130 {
-     keys {grpX-key ; };
+     keys {grpX-key; };
 };
 server 100.100.X.131 {
-     keys {grpX-key ; };
+     keys {grpX-key; };
 };
 ```
 
