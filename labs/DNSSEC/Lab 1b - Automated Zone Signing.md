@@ -55,6 +55,7 @@ dnssec-policy te-labs {
     signatures-validity 15d;
     signatures-validity-dnskey 15d;
     zone-propagation-delay 1h;
+	//nsec3param iterations 0 optout no salt-length 0;
 };
 ```
 
