@@ -91,6 +91,19 @@ grpX.<*lab_domain*>.te-labs.training. 60    IN      DS      2404 8 2 8A4D8024E59
 sysadm@cli:~$ 
 ```
 
-At this stage, you are telling the world that you are signed and any validator (recursive resolver with **DNSSEC validation enabled**) will validate DNS answers from your domain. Let's now configure a DNSSEC validation recursive resolver in the next lab to perform that DNSSEC validation.
-See you there!
+At this stage, you are telling the world that you are signed and any validator (recursive resolver with **DNSSEC validation enabled**) will validate DNS answers from your domain.
 
+Because you now have confirmation that your parent has published the DS for your zone, it is time to let your Signer be aware of it. This is important for the signer to maintain a proper management of the keys lifecycle. For that, you will need to run the below on your Signer server.
+
+```
+$ sudo rndc dnssec -checkds YOUR-KSK-key-tag published  grpX.<*lab_domain*>.te-labs.training
+```
+
+After which you can check the status of your keys in the signer:
+
+```
+sudo rndc dnssec -status grpX.<*lab_domain*>.te-labs.training
+```
+The state of your DS should now be "rumoured". In a while, it will probably change to another state that you can guess.
+
+Thank you!
