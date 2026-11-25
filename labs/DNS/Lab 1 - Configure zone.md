@@ -111,11 +111,11 @@ ns1         AAAA        fd89:59e0:X:128::130
 ns2         A           100.100.X.131
 ns2         AAAA        fd89:59e0:X:128::131
 soa			A			100.100.X.66
-soa 		AAAA		fd89:59e0:X:128::66
+soa 		AAAA		fd89:59e0:X:64::66
 resolv1		A			100.100.X.67
-resolv1		AAAA		fd89:59e0:X:128::67
+resolv1		AAAA		fd89:59e0:X:64::67
 resolv2		A			100.100.X.68
-resolv2		AAAA		fd89:59e0:X:128::68
+resolv2		AAAA		fd89:59e0:X:64::68
 www         A           100.100.X.130
 ```
 
@@ -201,7 +201,7 @@ root@soa:/var/lib$ dig @localhost soa grpX.<lab_domain>.te-labs.training.
 ;grpX.<lab_domain>.te-labs.training.        IN      SOA
 
 ;; ANSWER SECTION:
-grpX.<lab_domain>.te-labs.training. 30 IN   SOA     grpX.<lab_domain>.te-labs.training. dnsadmin.<lab_domain>.te-labs.training. 1 604800 86400 2419200 86400
+grpX.<lab_domain>.te-labs.training. 120 IN   SOA     grpX.<lab_domain>.te-labs.training. dnsadmin.<lab_domain>.te-labs.training. 1 604800 86400 2419200 86400
 
 ;; Query time: 0 msec
 ;; SERVER: ::1#53(::1)
@@ -275,10 +275,10 @@ $ sudo systemctl status bind9
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: all zones loaded
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: running
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: zone grpX.<lab_domain>.te-labs.training/IN: Transfer started.
-May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.2.66#53: connec>
+May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.X.66#53: connec>
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: zone grpX.<lab_domain>.te-labs.training/IN: transferred serial 1
-May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.2.66#53: Transf>
-May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.2.66#53: Transf>
+May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.X.66#53: Transf>
+May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: transfer of 'grpX.<lab_domain>.te-labs.training/IN' from 100.100.X.66#53: Transf>
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: zone grpX.<lab_domain>.te-labs.training/IN: sending notifies (serial 1)
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: managed-keys-zone: Key 20326 for zone . is now trusted (acceptance timer com>
 May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: resolver priming query complete
@@ -290,7 +290,7 @@ May 13 04:25:43 ns1.grpX.<lab_domain>.te-labs.training named[739]: resolver prim
 
 **Server ns2 runs NSD** (from NLnet Labs)
 
-First, create the zones directory and a new file for your domain name.
+First, create the directory for your zone files.
 
 ```
 $ sudo mkdir -p /var/lib/nsd
@@ -325,10 +325,8 @@ pattern:
     name: "fromprimary"
     allow-notify: 100.100.X.66 NOKEY
     allow-notify: fd89:59e0:X:64::66 NOKEY
-    allow-notify: fd89:59e0:X::2 NOKEY
     request-xfr: AXFR 100.100.X.66 NOKEY
     request-xfr: AXFR fd89:59e0:X:64::66 NOKEY
-    request-xfr: AXFR fd89:59e0:X::2 NOKEY
 
 zone:
     name: "grpX.<lab_domain>.te-labs.training."
